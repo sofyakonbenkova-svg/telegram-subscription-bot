@@ -12,7 +12,7 @@ from aiogram.client.default import DefaultBotProperties
 # ==========================
 
 TOKEN = os.getenv("BOT_TOKEN")
-CHANNEL_USERNAME = os.getenv("CHANNEL_USERNAME")
+CHANNEL_USERNAME = os.getenv("CHANNEL_USERNAME", user_id)
 FILE_NAME = "Дьявол.1_merged.pdf"  # Проверь точное название файла
 
 logging.basicConfig(level=logging.INFO)
@@ -45,7 +45,7 @@ async def check_subscription(callback: types.CallbackQuery):
     user_id = callback.from_user.id
     try:
         member = await bot.get_chat_member(CHANNEL_USERNAME, user_id)
-        print(f"[LOG] Статус пользователя {user_id}: {member.status}")
+print(f"[DEBUG] user_id={user_id}, status={member.status}")
 
         if member.status in [ChatMemberStatus.MEMBER, ChatMemberStatus.ADMINISTRATOR]:
             # Отправка PDF через путь к файлу (без InputFile)
