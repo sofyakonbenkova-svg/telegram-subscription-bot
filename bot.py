@@ -46,20 +46,18 @@ async def check_subscription(callback: types.CallbackQuery):
     user_id = callback.from_user.id
     try:
         member = await bot.get_chat_member(CHANNEL_USERNAME, user_id)
+        print(f"[LOG] Статус пользователя {user_id}: {member.status}")  # Логируем статус
 
-        if member.status in [
-            ChatMemberStatus.MEMBER,
-            ChatMemberStatus.ADMINISTRATOR,
-        ]:
-            await callback.message.answer_document(open(FILE_NAME, "rb"))
+        if member.status in [ChatMemberStatus.MEMBER, ChatMemberStatus.ADMINISTRATOR]:
+            file = InputFile(FILE_NAME)
+            await callback.message.answer_document(file)
             await callback.answer("Файл отправлен ✅")
         else:
             await callback.answer("Вы не подписаны ❌", show_alert=True)
 
     except Exception as e:
         await callback.answer("Ошибка проверки ❌", show_alert=True)
-        print("Ошибка:", e)
-
+        print(f"[ERROR] Ошибка проверки подписки для пользователя {user_id}: {e}")
 async def main():
     await dp.start_polling(bot)
 
