@@ -14,7 +14,7 @@ from aiogram.client.default import DefaultBotProperties
 
 TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_USERNAME = os.getenv("CHANNEL_USERNAME")
-FILE_NAME = "Дьявол 1_merged.pdf"   # Замени на название своего файла
+FILE_NAME = "Дьявол.1_merged.pdf"   # Замени на название своего файла
 
 logging.basicConfig(level=logging.INFO)
 
