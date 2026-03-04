@@ -50,7 +50,6 @@ async def check_subscription(callback: types.CallbackQuery):
         if member.status in [
             ChatMemberStatus.MEMBER,
             ChatMemberStatus.ADMINISTRATOR,
-            ChatMemberStatus.OWNER
         ]:
             await callback.message.answer_document(open(FILE_NAME, "rb"))
             await callback.answer("Файл отправлен ✅")
