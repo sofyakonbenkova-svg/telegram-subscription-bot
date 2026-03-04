@@ -3,7 +3,7 @@ import asyncio
 import logging
 import os
 from aiogram import Bot, Dispatcher, types
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputFile
 from aiogram.filters import Command
 from aiogram.enums import ChatMemberStatus
 from aiogram.client.default import DefaultBotProperties
