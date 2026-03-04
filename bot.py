@@ -45,10 +45,11 @@ async def check_subscription(callback: types.CallbackQuery):
     user_id = callback.from_user.id
     try:
         member = await bot.get_chat_member(CHANNEL_USERNAME, user_id)
-print(f"[DEBUG] user_id={user_id}, status={member.status}")
+        
+        # Логируем статус пользователя — обязательно внутри try
+        print(f"[DEBUG] user_id={user_id}, status={member.status}")
 
         if member.status in [ChatMemberStatus.MEMBER, ChatMemberStatus.ADMINISTRATOR]:
-            # Отправка PDF через путь к файлу (без InputFile)
             await callback.message.answer_document(FILE_NAME)
             await callback.answer("Файл отправлен ✅")
         else:
