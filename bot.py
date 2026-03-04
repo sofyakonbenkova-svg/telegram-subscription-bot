@@ -2,7 +2,7 @@ import asyncio
 import logging
 import os
 from aiogram import Bot, Dispatcher, types
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputFile
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.filters import Command
 from aiogram.enums import ChatMemberStatus
 from aiogram.client.default import DefaultBotProperties
@@ -13,7 +13,7 @@ from aiogram.client.default import DefaultBotProperties
 
 TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_USERNAME = os.getenv("CHANNEL_USERNAME")
-FILE_NAME = "Дьявол.1_merged.pdf"   # Проверь точное название файла
+FILE_NAME = "Дьявол.1_merged.pdf"  # Проверь точное название файла
 
 logging.basicConfig(level=logging.INFO)
 
@@ -44,14 +44,12 @@ async def start_handler(message: types.Message):
 async def check_subscription(callback: types.CallbackQuery):
     user_id = callback.from_user.id
     try:
-        # Проверяем подписку пользователя
         member = await bot.get_chat_member(CHANNEL_USERNAME, user_id)
         print(f"[LOG] Статус пользователя {user_id}: {member.status}")
 
         if member.status in [ChatMemberStatus.MEMBER, ChatMemberStatus.ADMINISTRATOR]:
-            # Отправка PDF через InputFile
-            file = InputFile(FILE_NAME)
-            await callback.message.answer_document(file)
+            # Отправка PDF через путь к файлу (без InputFile)
+            await callback.message.answer_document(FILE_NAME)
             await callback.answer("Файл отправлен ✅")
         else:
             await callback.answer("Вы не подписаны ❌", show_alert=True)
@@ -65,4 +63,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
